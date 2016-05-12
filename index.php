@@ -2,15 +2,13 @@
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html <?php language_attributes(); ?>> <!--<![endif]-->
 <head>
 
     <!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>zBoomMusic Free Html5 Responsive Template</title>
-	<meta name="description" content="Free Html5 Templates and Free Responsive Themes Designed by Kimmy | zerotheme.com">
-	<meta name="author" content="www.zerotheme.com">
+	<meta name="author" content="MD.JOSIM UDDIN">
 	
     <!-- Mobile Specific Metas
   ================================================== -->
@@ -18,26 +16,15 @@
     
     <!-- CSS
   ================================================== -->
-  	<link rel="stylesheet" href="css/zerogrid.css">
-	<link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-	<link rel="stylesheet" href="css/responsiveslides.css" />
-	
-	<!--[if lt IE 8]>
-       <div style=' clear: both; text-align:center; position: relative;'>
-         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
-        </a>
-      </div>
-    <![endif]-->
-    <!--[if lt IE 9]>
-		<script src="js/html5.js"></script>
-		<script src="js/css3-mediaqueries.js"></script>
-	<![endif]-->
-	
-	<link href='./images/favicon.ico' rel='icon' type='image/x-icon'/>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/responsiveslides.js"></script>
+  	<link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/zerogrid.css">
+	<link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/style.css">
+    <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/responsive.css">
+	<link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/responsiveslides.css" />
+	<link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/style.css" />
+        
+	<link href='<?php echo esc_url(get_template_directory_uri()); ?>/images/favicon.ico' rel='icon' type='image/x-icon'/>
+	<script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/jquery.min.js"></script>
+	<script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/responsiveslides.js"></script>
 	<script>
 		$(function () {
 		  $("#slider").responsiveSlides({
@@ -50,12 +37,14 @@
 		  });
 		});
 	</script>
+        
+    <?php wp_head(); ?>
 </head>
-<body>
+<body <?php body_class(); ?>>
 <!--------------Header--------------->
 <header>
 	<div class="wrap-header zerogrid">
-		<div id="logo"><a href="#"><img src="./images/logo.png"/></a></div>
+		<div id="logo"><a href="<?php bloginfo('home'); ?>"><img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/logo.png"/></a></div>
 		
 		<div id="search">
 			<div class="button-search"></div>
@@ -67,13 +56,14 @@
 <nav>
 	<div class="wrap-nav zerogrid">
 		<div class="menu">
-			<ul>
-				<li><a href="index.html">Home</a></li>
-				<li class="current"><a href="blog.html">Blog</a></li>
-				<li><a href="gallery.html">Gallery</a></li>
-				<li><a href="single.html">About</a></li>
-				<li><a href="contact.html">Contact</a></li>
-			</ul>
+			
+                    <?php if(function_exists('wp_nav_menu')){
+                        wp_nav_menu(array(
+                            'theme_location'=>'main-menu'
+                        ));
+                    }
+                    ?>
+                    
 		</div>
 		
 		<div class="minimenu"><div>MENU</div>
@@ -95,18 +85,15 @@
 		<div class="row block03">
 			<div class="col-2-3">
 				<div class="wrap-col">
+                                    <?php while (have_posts()): the_post(); ?>
 					<article>
-						<img src="images/img1.png"/>
-						<h2><a href="#">Dreaming With Us All Night</a></h2>
-						<div class="info">[By Admin on December 01, 2012 with <a href="#">01 Commnets</a>]</div>
-						<p>Consectetur adipisci. Belit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore ater magnam aliquam quaerat voluptatem. ut enim ad minima ven m, quis nost. Rum exercitationem ullam...</p>
+						<?php the_post_thumbnail(); ?>
+						<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+						<div class="info">[By <?php the_author(); ?> on <?php the_time('F d, Y');?> with <?php comments_popup_link('No comments','One comment','% comments','comment_class','Comments off'); ?>]</div>
+                                                <?php read_more(10); ?>... <a href="<?php the_permalink(); ?>">read more</a>
 					</article>
-					<article>
-						<img src="images/img2.png"/>
-						<h2><a href="#">Welcome To Our Great Site</a></h2>
-						<div class="info">[By Admin on December 01, 2012 with <a href="#">01 Commnets</a>]</div>
-						<p>Consectetur adipisci. Belit, sed quia non numquam eius modi tempora incidunt, ut labore et dolore ater magnam aliquam quaerat voluptatem. ut enim ad minima ven m, quis nost. Rum exercitationem ullam...</p>
-					</article>
+                                    
+                                    <?php endwhile; ?>
 					<ul id="pagi">
 						<li><a class="current" href="#">1</a></li>
 						<li><a href="#">2</a></li>
@@ -121,7 +108,7 @@
 					<div class="box">
 						<div class="heading"><h2>Latest Albums</h2></div>
 						<div class="content">
-							<img src="images/albums.png"/>
+							<img src="<?php echo esc_url(get_template_directory_uri()); ?>/images/albums.png"/>
 						</div>
 					</div>
 					<div class="box">
@@ -209,5 +196,5 @@
 		</div>
 	</div>
 </footer>
-
+<?php wp_footer(); ?>
 </body></html>
