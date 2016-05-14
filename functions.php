@@ -15,5 +15,24 @@ function zboom_default_functions(){
         $less_content=  array_slice($post_content, 0, $limit);
         echo implode(" ", $less_content);
     }
+    
+    
+    register_post_type('zboom-slider',array(
+        'labels'=>array(
+            'name'=>'Sliders',
+            'add_new_item'=>'Add new slider'
+        ),
+        'public'=>true,
+        'supports'=>array('title','thumbnail')
+    ));
+    
+    register_post_type('zboom-service',array(
+        'labels'=>array(
+            'name'=>'Blocks',
+            'add_new_item'=>__('Add New Block','zboom')
+        ),
+        'public'=>TRUE,
+        'supports=>'=>array('title','editor')
+    ));
 }
 add_action('after_setup_theme','zboom_default_functions');
