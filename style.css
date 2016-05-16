@@ -11,3 +11,8 @@ Version: 1.0
     height: 30px;
     width: 30px;
 }
+.right_sidebar ul {
+	background: rgb(30, 30, 30) none repeat scroll 0% 0%;
+	padding-left: 20px;
+	margin: 0 !important;
+}

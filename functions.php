@@ -36,3 +36,30 @@ function zboom_default_functions(){
     ));
 }
 add_action('after_setup_theme','zboom_default_functions');
+
+
+
+
+
+function zboom_right_sidebar(){
+    register_sidebar(array(
+        'name'=>__('Right Sidebar','zboom'),
+        'description'=>__('Add your right sidebar widgets here','zboom'),
+        'id'=>'right_sidebar',
+        'before_widget'=>'<div class="box right_sidebar">',
+        'after_widget'=>'</div></div>',
+        'before_title'=>'<div class="heading"><h2>',
+        'after_title'=>'</h2></div><div class="content">'
+    ));
+    
+    register_sidebar(array(
+        'name'=>__('Footer Widgets','zboom'),
+        'description'=>__('Add your right footer widgets here','zboom'),
+        'id'=>'footer-widget',
+        'before_widget'=>'<div class="col-1-4"><div class="wrap-col"><div class="box">',
+        'after_widget'=>'</div></div></div></div>',
+        'before_title'=>'<div class="heading"><h2>',
+        'after_title'=>'</h2></div><div class="content">'
+    ));
+}
+add_action('widgets_init','zboom_right_sidebar');
